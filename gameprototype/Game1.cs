@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using gameprototype.menu;
 
 namespace gameprototype
 {
@@ -9,15 +11,29 @@ namespace gameprototype
     /// </summary>
     public class Game1 : Game
     {
+        //enum
+        enum GameState { Menu, ingame, Pause}
+
+        //overgame
+        GameState gs;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //menu
+        SpriteFont text;
+        Menu mu;
+        SoundEffect menuBackgroundMusic;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+
             //setting fullscreen
             graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
+
             Content.RootDirectory = "Content";
         }
 
@@ -30,7 +46,8 @@ namespace gameprototype
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            gs = GameState.Menu;
+            mu = new Menu(text,menuBackgroundMusic);
             
 
             base.Initialize();
@@ -44,7 +61,9 @@ namespace gameprototype
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            text = Content.Load<SpriteFont>("font");
 
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,7 +99,18 @@ namespace gameprototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            switch(gs)
+            {
+                default:
+                    spriteBatch.Begin();
+
+                    mu.Draw(spriteBatch);
+
+                    spriteBatch.End();
+                    break;
+            };
+            
+
 
             base.Draw(gameTime);
         }
