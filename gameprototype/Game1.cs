@@ -6,17 +6,19 @@ using gameprototype.menu;
 
 namespace gameprototype
 {
+
+    //enum
+    enum GameState { Menu, ingame, Pause }
+
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
-        //enum
-        enum GameState { Menu, ingame, Pause}
+
 
         //overgame
-        GameState gs;
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -46,8 +48,8 @@ namespace gameprototype
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gs = GameState.Menu;
-            mu = new Menu(text,menuBackgroundMusic);
+            StaticVaribels.gs = GameState.Menu;
+
             
 
             base.Initialize();
@@ -63,7 +65,7 @@ namespace gameprototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
             text = Content.Load<SpriteFont>("font");
 
-            
+            mu = new Menu(text, menuBackgroundMusic);
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,6 +88,13 @@ namespace gameprototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            switch (StaticVaribels.gs)
+            {
+                default:
+                    mu.Update();
+                    break;
+            };
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -97,9 +106,9 @@ namespace gameprototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            switch(gs)
+            switch(StaticVaribels.gs)
             {
                 default:
                     spriteBatch.Begin();

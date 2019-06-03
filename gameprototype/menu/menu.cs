@@ -19,13 +19,14 @@ namespace gameprototype.menu
 
         public void Update()
         {
-
+            //backgroundMusic.Play();
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
 
+            spriteBatch.DrawString(textFont,"Test", new Vector2(20,20),Color.White);
         }
     }
 }
