@@ -9,12 +9,15 @@ namespace gameprototype
     /// </summary>
     public class Game1 : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            //setting fullscreen
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -27,6 +30,8 @@ namespace gameprototype
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            
 
             base.Initialize();
         }
